@@ -1,8 +1,8 @@
 (ns dojo-tools.events
   (:require [re-frame.core :as rf]
-            [dojo-tools.db :refer [default check-db-spec] :as db]
+            [dojo-tools.db :refer [default check-db-spec]]
             [dojo-tools.fb]
-            [dojo-tools.utils :as utils]))
+            [dojo-tools.specs :refer [coerce-dojos]]))
 
 
 ;; Events
@@ -20,7 +20,7 @@
   (fn []
     {:firebase/subscribe
      [{:path    [:dojos]
-       :process utils/stringify-keys}]}))
+       :process coerce-dojos}]}))
 
 
 (rf/reg-event-db
