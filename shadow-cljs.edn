@@ -1,0 +1,14 @@
+{:lein   true
+
+ :nrepl  {:port 3333}
+
+ :builds {:app {:target     :browser
+                :output-dir "public/js"
+                :asset-path "/js"
+
+                :modules    {:main
+                             {:entries [dojo-tools.core]}}
+
+                :devtools   {:after-load dojo-tools.core/mount-root
+                             :http-root  "public"
+                             :http-port  3000}}}}

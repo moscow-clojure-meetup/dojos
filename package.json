@@ -1,0 +1,21 @@
+{
+  "name": "dojo-tools",
+  "version": "1.0.0",
+  "description": "Tools for MCLJSUG",
+  "scripts": {
+    "shadow-watch-app": "shadow-cljs watch app",
+    "clean": "lein clean",
+    "dev": "npm run clean && npm run shadow-watch-app"
+  },
+  "author": "@thachenko1503",
+  "license": "MIT",
+  "dependencies": {
+    "create-react-class": "15.6.3",
+    "firebase": "5.4.2",
+    "moment": "2.22.2",
+    "react": "16.4.2",
+    "react-bootstrap": "0.32.1",
+    "react-dom": "16.4.2",
+    "shadow-cljs": "2.5.0"
+  }
+}
