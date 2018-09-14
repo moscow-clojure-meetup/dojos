@@ -6,6 +6,12 @@ Probably you will need to install shadow-cljs
     npm i -g shadow-cljs
 ```
 
+Install deps
+
+```
+    npm i
+```
+
 Then run dev build
 
 ```
