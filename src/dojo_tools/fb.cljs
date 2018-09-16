@@ -31,8 +31,12 @@
 
 (reg-fx
   :firebase/save
-  (fn [[path value]]
-    (fb-save path value)))
+  (fn [new-data]
+    (dorun
+      (map
+        (fn [{:keys [path value]}]
+          (fb-save path value))
+        new-data))))
 
 
 (defn db-subscribe

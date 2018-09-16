@@ -15,6 +15,7 @@
     "moment": "2.22.2",
     "react": "16.4.2",
     "react-bootstrap": "0.32.1",
+    "react-datepicker": "1.6.0",
     "react-dom": "16.4.2",
     "shadow-cljs": "2.5.0"
   }

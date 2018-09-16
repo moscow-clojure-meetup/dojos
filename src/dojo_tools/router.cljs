@@ -1,12 +1,14 @@
 (ns dojo-tools.router
   (:require [bide.core :as r]
-            [re-frame.core :refer [dispatch-sync]]))
+            [re-frame.core :refer [dispatch-sync reg-fx]]))
 
 
-(def router
+(defonce router
   (r/router
     [["/" :dojos]
-     ["/dojo/:dojo-id" :dojo-details]]))
+     ["/dojo/:dojo-id" :dojo-details]
+     ["/admin" :admin-dojos]
+     ["/admin/new" :admin-dojo-form]]))
 
 
 (defn url-for
@@ -27,11 +29,22 @@
 (defn on-navigate [name params query]
   (dispatch-sync [:set-route name params query]))
 
+
 (defn start-router! []
   (r/start!
     router
     {:default     :dojos
      :on-navigate on-navigate}))
 
+
 (defn navigate-to! [name params query]
-  (r/navigate! router name params query))
+  ;; Should be triggered in the next tick
+  (js/setTimeout
+    #(r/navigate! router name params query)
+    0))
+
+
+(reg-fx
+  :navigate-to-route
+  (fn [[name params query]]
+    (navigate-to! name params query)))

@@ -1,10 +1,18 @@
 (ns dojo-tools.specs
-  (:require [schema.core :as s :include-macros true]
+  (:require [moment]
+            [reagent.interop :refer [$]]
+            [schema.core :as s :include-macros true]
             [schema.coerce :as coerce]
             [schema.utils :as s-utils]))
 
 
 (def Id s/Str)
+
+(def Timestamp s/Num)
+
+(defn non-empty [x]
+  (not (empty? x)))
+
 
 (defn id-keys-matcher [schema]
   (when (= Id schema)
@@ -12,6 +20,15 @@
       (fn [x]
         (if (keyword? x)
           (name x)
+          x)))))
+
+
+(defn timestamp-matcher [schema]
+  (when (= Timestamp schema)
+    (coerce/safe
+      (fn [x]
+        (if ($ moment isMoment x)
+          (js/Number x)
           x)))))
 
 
@@ -23,12 +40,14 @@
 
 
 (defn coerce-data [spec data]
-  (let [matcher (coerce/first-matcher [id-keys-matcher coerce/json-coercion-matcher])
+  (let [matcher (coerce/first-matcher [id-keys-matcher
+                                       timestamp-matcher
+                                       coerce/json-coercion-matcher])
         coercer (coerce/coercer spec matcher)
         result  (coercer data)]
     (if (s-utils/error? result)
       (do
-        (log-error "Data doesn't match spec" data (s-utils/error-val result))
+        (log-error "Coerce | Data doesn't match spec" data (s-utils/error-val result))
         data)
 
       result)))
@@ -37,18 +56,24 @@
 (defn check [spec db]
   (let [mismatch (s/check spec db)]
     (when mismatch
-      (log-error "Data doesn't match spec" db mismatch))))
+      (log-error "Validate | Data doesn't match spec" db mismatch))))
 
 
 ;; Dojos
 (def dojo-spec
-  {:id          Id
-   :title       s/Str
-   ;:description s/Str
-   ;:cover       s/Str
-   ;:place       s/Str
-   ;:gallery     [s/Str]
-   :start-time  s/Int})
+  {:id                       Id
+   :title                    (s/constrained s/Str non-empty)
+   :description              (s/constrained s/Str non-empty)
+   (s/optional-key :cover)   s/Str
+   (s/optional-key :place)   s/Str
+   (s/optional-key :gallery) [s/Str]
+   :start-time               Timestamp})
+
+(def coerce-dojo
+  (partial coerce-data dojo-spec))
+
+(def check-dojo
+  (partial s/check dojo-spec))
 
 (def dojos-spec
   {s/Str dojo-spec})

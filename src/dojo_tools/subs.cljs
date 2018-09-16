@@ -62,3 +62,14 @@
   :<- [:current-route-params]
   (fn [[dojos {:keys [dojo-id]}]]
     (get dojos dojo-id)))
+
+
+(rf/reg-sub
+  :to-path
+  (fn [db [_ path]]
+    (get-in db path)))
+
+(rf/reg-sub
+  :get-form
+  (fn [db [_ form-id]]
+    (get-in db [:app-forms form-id])))

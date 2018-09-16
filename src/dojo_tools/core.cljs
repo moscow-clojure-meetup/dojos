@@ -5,7 +5,7 @@
             [dojo-tools.router :refer [start-router!]]
             [dojo-tools.subs]
             [dojo-tools.events]
-            [dojo-tools.components :refer [app]]))
+            [dojo-tools.components.app :refer [app]]))
 
 
 ;; Entry

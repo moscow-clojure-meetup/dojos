@@ -12,5 +12,5 @@
    :members        nil
    :members-groups nil
 
-   :upcommin-dojos ["2018-09-05"]
-   :past-dojos     ["2018-09-06" "2018-09-07"]})
+   :upcommin-dojos []
+   :past-dojos     []})
