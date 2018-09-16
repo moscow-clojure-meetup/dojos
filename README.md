@@ -6,6 +6,12 @@
     npm i -g shadow-cljs
 ```
 
+#### Install deps
+
+```
+    npm i
+```
+
 #### Then run dev build
 
 ```
