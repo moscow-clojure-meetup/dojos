@@ -8,7 +8,8 @@
             [dojo-tools.components.admin-dojo-form :refer [admin-dojo-form]]
             [dojo-tools.components.dojo-details :refer [dojo-details]]
             [dojo-tools.components.admin-dojos :refer [admin-dojos]]
-            [dojo-tools.components.admin-sidebar :refer [admin-sidebar]]))
+            [dojo-tools.components.admin-sidebar :refer [admin-sidebar]]
+            [dojo-tools.components.admin-run-dojo :refer [admin-run-dojo]]))
 
 
 (defn public-page-content [{:keys [route-name]}]
@@ -39,6 +40,7 @@
   (let [content-component (case route-name
                             :admin-dojo-form admin-dojo-form
                             :admin-dojos admin-dojos
+                            :admin-run-dojo admin-run-dojo
                             nil)]
     [content-component]))
 

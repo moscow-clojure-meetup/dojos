@@ -64,6 +64,7 @@
   {:id                       Id
    :title                    (s/constrained s/Str non-empty)
    :description              (s/constrained s/Str non-empty)
+   :state                    s/Keyword
    (s/optional-key :cover)   s/Str
    (s/optional-key :place)   s/Str
    (s/optional-key :gallery) [s/Str]
@@ -76,7 +77,7 @@
   (partial s/check dojo-spec))
 
 (def dojos-spec
-  {s/Str dojo-spec})
+  {Id dojo-spec})
 
 (def coerce-dojos
   (partial coerce-data dojos-spec))
@@ -84,31 +85,31 @@
 
 ;; Members
 (def member
-  {:id      s/Str
+  {:id      Id
    :name    s/Str
-   :dojo-id s/Str})
+   :dojo-id Id})
 
 (def members
-  {s/Str member})
+  {Id member})
 
 
 ;; Groups
 (def members-group
-  {:id      s/Str
+  {:id      Id
    :number  s/Int
-   :dojo-id s/Str
-   :members [s/Str]})
+   :dojo-id Id
+   :members [Id]})
 
 (def members-groups
-  {s/Str members-group})
+  {Id members-group})
 
 
 ;; Misc
 (def upcommin-dojos-spec
-  [s/Str])
+  [Id])
 
 (def past-dojos-spec
-  [s/Str])
+  [Id])
 
 
 ;; DB

@@ -76,7 +76,8 @@
                      :start-time  {:default-value (moment)
                                    :process       identity}
                      :title       {:default-value ""}
-                     :description {:default-value ""}}}
+                     :description {:default-value ""}
+                     :state       {:default-value :pending}}}
    (fn [fields errors on-submit]
      [admin-dojo-form-render
       {:on-submit   on-submit

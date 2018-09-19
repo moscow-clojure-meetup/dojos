@@ -17,3 +17,5 @@
 (def form-control (adapt-react-class b/FormControl))
 (def feedback (adapt-react-class b/FormControl.Feedback))
 (def help-block (adapt-react-class b/HelpBlock))
+(def drop-btn (adapt-react-class b/DropdownButton))
+(def menu-item (adapt-react-class b/MenuItem))
