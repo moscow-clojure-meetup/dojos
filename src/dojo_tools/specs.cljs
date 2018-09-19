@@ -13,6 +13,8 @@
 (defn non-empty [x]
   (not (empty? x)))
 
+(def NonEmptyStr (s/constrained s/Str non-empty))
+
 
 (defn id-keys-matcher [schema]
   (when (= Id schema)
@@ -62,13 +64,17 @@
 ;; Dojos
 (def dojo-spec
   {:id                       Id
-   :title                    (s/constrained s/Str non-empty)
-   :description              (s/constrained s/Str non-empty)
+   :title                    NonEmptyStr
+   :description              NonEmptyStr
    :state                    s/Keyword
    (s/optional-key :cover)   s/Str
    (s/optional-key :place)   s/Str
    (s/optional-key :gallery) [s/Str]
    :start-time               Timestamp})
+
+(def dojos-spec
+  {Id dojo-spec})
+
 
 (def coerce-dojo
   (partial coerce-data dojo-spec))
@@ -76,21 +82,28 @@
 (def check-dojo
   (partial s/check dojo-spec))
 
-(def dojos-spec
-  {Id dojo-spec})
-
 (def coerce-dojos
   (partial coerce-data dojos-spec))
 
 
 ;; Members
-(def member
+(def member-spec
   {:id      Id
-   :name    s/Str
+   :name    NonEmptyStr
    :dojo-id Id})
 
-(def members
-  {Id member})
+(def members-spec
+  {Id member-spec})
+
+
+(def coerce-member
+  (partial coerce-data member-spec))
+
+(def check-member
+  (partial s/check member-spec))
+
+(def coerce-members
+  (partial coerce-data members-spec))
 
 
 ;; Groups
@@ -115,7 +128,7 @@
 ;; DB
 (def db-spec
   {:dojos          (s/maybe dojos-spec)
-   :members        (s/maybe members)
+   :members        (s/maybe members-spec)
    :members-groups (s/maybe members-groups)
    :upcommin-dojos upcommin-dojos-spec
    :past-dojos     past-dojos-spec

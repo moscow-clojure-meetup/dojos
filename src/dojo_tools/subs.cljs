@@ -73,3 +73,17 @@
   :get-form
   (fn [db [_ form-id]]
     (get-in db [:app-forms form-id])))
+
+
+(rf/reg-sub
+  :members
+  (fn [db]
+    (:members db)))
+
+(rf/reg-sub
+  :dojo-members
+  :<- [:members]
+  (fn [members [_ dojo-id]]
+    (->> members
+         vals
+         (filter #(= (:dojo-id %) dojo-id)))))

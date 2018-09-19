@@ -2,7 +2,7 @@
   (:require [re-frame.core :as rf]
             [dojo-tools.db :refer [default check-db-spec]]
             [dojo-tools.fb]
-            [dojo-tools.specs :refer [coerce-dojos coerce-dojo]]
+            [dojo-tools.specs :as specs]
             [dojo-tools.utils :as utils]))
 
 
@@ -21,9 +21,11 @@
   (fn []
     {:firebase/subscribe
      [{:path    [:dojos]
-       :process coerce-dojos}
+       :process specs/coerce-dojos}
       {:path    [:upcommin-dojos]
-       :process #(vals %)}]}))
+       :process #(vals %)}
+      {:path    [:members]
+       :process specs/coerce-members}]}))
 
 
 (rf/reg-event-db
@@ -73,7 +75,7 @@
   :save-new-dojo
   [rf/trim-v]
   (fn [_ [new-dojo]]
-    (let [dojo (coerce-dojo new-dojo)
+    (let [dojo (specs/coerce-dojo new-dojo)
           id   (:id dojo)]
       {:firebase/save     [{:path  [:dojos id]
                             :value dojo}
@@ -88,3 +90,11 @@
   (fn [_ [id state]]
     {:firebase/save [{:path  [:dojos id :state]
                       :value state}]}))
+
+
+(rf/reg-event-fx
+  :save-member
+  [rf/trim-v]
+  (fn [_ [{:keys [id] :as new-member}]]
+    {:firebase/save [{:path  [:members id]
+                      :value new-member}]}))

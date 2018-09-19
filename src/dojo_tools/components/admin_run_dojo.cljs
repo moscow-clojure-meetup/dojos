@@ -1,12 +1,15 @@
 (ns dojo-tools.components.admin-run-dojo
   (:require [re-frame.core :as rf]
             [dojo-tools.components.form :refer [form]]
-            [dojo-tools.components.bootstrap :as b]))
+            [dojo-tools.components.bootstrap :as b]
+            [dojo-tools.components.dojo-members-list :refer [dojo-members-list]]))
 
 
 (def dojo-states
-  {:pending "Upcoming"
-   :started "Started"})
+  {:pending        "Upcoming"
+   :started        "Started"
+   :groups-created "Groups created"
+   :closed         "Closed"})
 
 
 (defn save-dojo-state [{:keys [id state]}]
@@ -38,9 +41,12 @@
          "Save new state"]]))])
 
 
-(defn dojo-members []
-  [:h3
-   "Registration for members is opened"])
+(defn dojo-members [{:keys [dojo-id]}]
+  [:<>
+   [:h3
+    "Registration for members is opened"]
+
+   [dojo-members-list {:dojo-id dojo-id}]])
 
 
 (defn admin-run-dojo-render [{:keys [dojo]}]
@@ -54,7 +60,7 @@
                                :dojo-state dojo-state}]
 
      (when (= dojo-state :started)
-       [dojo-members])]))
+       [dojo-members {:dojo-id dojo-id}])]))
 
 
 (defn admin-run-dojo []
