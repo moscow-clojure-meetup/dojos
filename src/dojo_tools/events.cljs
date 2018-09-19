@@ -80,3 +80,11 @@
                            {:path  [:upcommin-dojos id]
                             :value id}]
        :navigate-to-route [:admin-dojos]})))
+
+
+(rf/reg-event-fx
+  :save-dojo-state
+  [rf/trim-v]
+  (fn [_ [id state]]
+    {:firebase/save [{:path  [:dojos id :state]
+                      :value state}]}))

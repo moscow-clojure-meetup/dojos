@@ -23,8 +23,14 @@
           :let [title (:title dojo)]]
       ^{:key id}
       [b/list-group-item {:class "admin-dojos__dojo"}
+       [:div {:class "admin-dojos__dojo-title"}
+        [:b title]]
+
        [:div
-        title]])]])
+        [b/button {:href     (url-for :admin-run-dojo {:dojo-id id})
+                   :bs-style "success"
+                   :bs-size  "xs"}
+         [b/glyph-icon {:glyph "play"}]]]])]])
 
 
 (defn admin-dojos []

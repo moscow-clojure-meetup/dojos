@@ -192,3 +192,17 @@ body * {
   color: var(--main-text-color);
   background-color: var(--hover-color);
 }
+
+.admin-dojos__dojo {
+  display: flex;
+  align-items: center;
+}
+
+.admin-dojos__dojo-title {
+  flex-grow: 1;
+}
+
+.run-dojo-state-controls {
+  display: flex;
+  justify-content: space-between;
+}

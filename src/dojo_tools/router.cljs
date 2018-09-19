@@ -8,7 +8,8 @@
     [["/" :dojos]
      ["/dojo/:dojo-id" :dojo-details]
      ["/admin" :admin-dojos]
-     ["/admin/new" :admin-dojo-form]]))
+     ["/admin/new" :admin-dojo-form]
+     ["/admin/run/:dojo-id" :admin-run-dojo]]))
 
 
 (defn url-for
