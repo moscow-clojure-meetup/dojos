@@ -5,12 +5,10 @@
 
 
 ;; Subscriptions
-(defn dojos [db]
-  (:dojos db))
-
 (rf/reg-sub
  :dojos
- dojos)
+ (fn [db]
+   (:dojos db)))
 
 (defn past-dojos-list [db]
   (:past-dojos db))

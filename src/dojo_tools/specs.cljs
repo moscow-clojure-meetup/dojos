@@ -96,9 +96,6 @@
   {Id member-spec})
 
 
-(def coerce-member
-  (partial coerce-data member-spec))
-
 (def check-member
   (partial s/check member-spec))
 
