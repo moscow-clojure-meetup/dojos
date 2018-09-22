@@ -1,4 +1,5 @@
 (defproject dojo-tools "0.1.0-SNAPSHOT"
+  :min-lein-version "2.0.0"
 
   :dependencies [[thheller/shadow-cljs "2.6.6"]
                  [binaryage/devtools "0.9.10"]
