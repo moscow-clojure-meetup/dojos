@@ -1,5 +1,6 @@
 (ns dojo-tools.events
   (:require [re-frame.core :as rf]
+            [day8.re-frame.async-flow-fx]
             [dojo-tools.db :refer [default check-db-spec]]
             [dojo-tools.fb]
             [dojo-tools.specs :as specs]
@@ -25,7 +26,9 @@
       {:path    [:upcommin-dojos]
        :process #(vals %)}
       {:path    [:members]
-       :process specs/coerce-members}]}))
+       :process specs/coerce-members}
+      {:path    [:members-groups]
+       :process specs/coerce-members-groups}]}))
 
 
 (rf/reg-event-db
@@ -84,12 +87,29 @@
        :navigate-to-route [:admin-dojos]})))
 
 
+(defmulti save-dojo-state (fn [_ [_ state]] state))
+
+(defmethod save-dojo-state :groups-created
+  [{:keys [db]} [id state partition]]
+  (let [groups         (utils/split-member-to-groups (-> db :members vals) partition)
+        make-group     #(utils/create-members-group id (inc %1) %2)
+        members-groups (->> groups
+                            (map-indexed make-group)
+                            utils/reduce-by-id)]
+    {:dispatch      [:save-members-groups members-groups]
+     :firebase/save [{:path  [:dojos id :state]
+                      :value state}]}))
+
+
+(defmethod save-dojo-state :default
+  [_ [id state]]
+  {:firebase/save [{:path  [:dojos id :state]
+                    :value state}]})
+
 (rf/reg-event-fx
   :save-dojo-state
   [rf/trim-v]
-  (fn [_ [id state]]
-    {:firebase/save [{:path  [:dojos id :state]
-                      :value state}]}))
+  save-dojo-state)
 
 
 (rf/reg-event-fx
@@ -98,3 +118,12 @@
   (fn [_ [{:keys [id] :as new-member}]]
     {:firebase/save [{:path  [:members id]
                       :value new-member}]}))
+
+
+(rf/reg-event-fx
+  :save-members-groups
+  [rf/trim-v]
+  (fn [_ [members-groups]]
+    (let [membes (specs/coerce-members-groups members-groups)]
+      {:firebase/save-map {:path  [:members-groups]
+                           :value membes}})))

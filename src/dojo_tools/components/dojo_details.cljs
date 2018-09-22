@@ -2,11 +2,15 @@
   (:require [re-frame.core :as rf]
             [dojo-tools.components.bootstrap :refer [grid row col]]
             [dojo-tools.components.add-member-form :refer [add-member-form]]
-            [dojo-tools.components.dojo-members-list :refer [dojo-members-list]]))
+            [dojo-tools.components.dojo-members-list :refer [dojo-members-list]]
+            [dojo-tools.components.dojo-groups :refer [dojo-groups]]))
 
 
-(defn dojo-members-groups [{:keys [dojo]}]
-  [:div "members groups"])
+(defn dojo-members-groups [{:keys [dojo-id]}]
+  [:div
+   [:h2 "DOJO groups"]
+
+   [dojo-groups {:dojo-id dojo-id}]])
 
 
 (defn dojo-collect-members [{:keys [dojo-id]}]

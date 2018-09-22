@@ -206,3 +206,14 @@ body * {
   display: flex;
   justify-content: space-between;
 }
+
+.run-dojo-state-controls__partition {
+  width: 60px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+}
+
+.dojo-groups {
+  margin-top: 40px;
+}

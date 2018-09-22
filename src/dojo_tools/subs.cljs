@@ -6,23 +6,23 @@
 
 ;; Subscriptions
 (rf/reg-sub
- :dojos
- (fn [db]
-   (:dojos db)))
+  :dojos
+  (fn [db]
+    (:dojos db)))
 
 (defn past-dojos-list [db]
   (:past-dojos db))
 
 (rf/reg-sub
- :past-dojos-list
- past-dojos-list)
+  :past-dojos-list
+  past-dojos-list)
 
 (defn upcomming-dojos-list [db]
   (:upcommin-dojos db))
 
 (rf/reg-sub
- :upcomming-dojos-list
- upcomming-dojos-list)
+  :upcomming-dojos-list
+  upcomming-dojos-list)
 
 
 (defn prepare-dojos [[dojos dojos-list]]
@@ -32,16 +32,16 @@
     (mapv utils/format-dojo raw-dojos)))
 
 (rf/reg-sub
- :past-dojos
- :<- [:dojos]
- :<- [:past-dojos-list]
- prepare-dojos)
+  :past-dojos
+  :<- [:dojos]
+  :<- [:past-dojos-list]
+  prepare-dojos)
 
 (rf/reg-sub
- :upcomming-dojos
- :<- [:dojos]
- :<- [:upcomming-dojos-list]
- prepare-dojos)
+  :upcomming-dojos
+  :<- [:dojos]
+  :<- [:upcomming-dojos-list]
+  prepare-dojos)
 
 
 (rf/reg-sub
@@ -85,3 +85,24 @@
     (->> members
          vals
          (filter #(= (:dojo-id %) dojo-id)))))
+
+(rf/reg-sub
+  :members-by-ids
+  :<- [:members]
+  (fn [members [_ ids]]
+    (vals (select-keys members ids))))
+
+
+(rf/reg-sub
+  :members-groups
+  (fn [db]
+    (:members-groups db)))
+
+(rf/reg-sub
+  :dojo-members-groups
+  :<- [:members-groups]
+  (fn [members-groups [_ dojo-id]]
+    (->> members-groups
+         vals
+         (filter #(= (:dojo-id %) dojo-id)))))
+

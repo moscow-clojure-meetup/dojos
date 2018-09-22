@@ -8,6 +8,8 @@
 
 (def Id s/Str)
 
+(def IdsList [Id])
+
 (def Timestamp s/Num)
 
 (defn non-empty [x]
@@ -22,8 +24,15 @@
       (fn [x]
         (if (keyword? x)
           (name x)
-          x)))))
+          (str x))))))
 
+(defn ids-list-keys-matcher [schema]
+  (when (= IdsList schema)
+    (coerce/safe
+      (fn [x]
+        (if (map? x)
+          (vals x)
+          x)))))
 
 (defn timestamp-matcher [schema]
   (when (= Timestamp schema)
@@ -43,6 +52,7 @@
 
 (defn coerce-data [spec data]
   (let [matcher (coerce/first-matcher [id-keys-matcher
+                                       ids-list-keys-matcher
                                        timestamp-matcher
                                        coerce/json-coercion-matcher])
         coercer (coerce/coercer spec matcher)
@@ -108,10 +118,14 @@
   {:id      Id
    :number  s/Int
    :dojo-id Id
-   :members [Id]})
+   :members IdsList})
 
 (def members-groups
   {Id members-group})
+
+
+(def coerce-members-groups
+  (partial coerce-data members-groups))
 
 
 ;; Misc
