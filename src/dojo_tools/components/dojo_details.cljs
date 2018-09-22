@@ -3,7 +3,8 @@
             [dojo-tools.components.bootstrap :refer [grid row col]]
             [dojo-tools.components.add-member-form :refer [add-member-form]]
             [dojo-tools.components.dojo-members-list :refer [dojo-members-list]]
-            [dojo-tools.components.dojo-groups :refer [dojo-groups]]))
+            [dojo-tools.components.dojo-groups :refer [dojo-groups]]
+            [markdown.core :refer [md->html]]))
 
 
 (defn dojo-members-groups [{:keys [dojo-id]}]
@@ -20,9 +21,14 @@
 
 
 (defn dojo-preview [{:keys [dojo]}]
-  [:h1
-   (:title dojo)])
-
+  [:article {:class "dojo-details"}
+   (when (:cover dojo)
+     [:img {:class "dojo-details__cover" :style {:background-image (str "url(" (:cover dojo) ")")}}])
+   [:h1 {:class "dojo-details__header"}
+    (:title dojo)]
+   [:div {:class "dojo-details__description"
+          :dangerouslySetInnerHTML
+          {:__html (md->html (:description dojo))}}]])
 
 (defn dojo-details-render [{:keys [dojo]}]
   (let [dojo-state (:state dojo)
