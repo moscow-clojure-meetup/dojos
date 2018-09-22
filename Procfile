@@ -1,1 +1,1 @@
-web: echo "Hello heroku"
+web: npm i & npm start
