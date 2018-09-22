@@ -17,6 +17,10 @@ body * {
     outline: none!important;
 }
 
+em {
+  font-style: italic;
+}
+
 
 /* link */
 .link {
@@ -216,4 +220,32 @@ body * {
 
 .dojo-groups {
   margin-top: 40px;
+}
+
+/* Dojo details */
+.dojo-details {
+
+}
+
+.dojo-details__cover {
+  width: 100%;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (min-width: 768px) {
+  .dojo-details__cover {
+    height: 300px;
+  }
+}
+
+.dojo-details__header {
+  margin-top: 30px;
+}
+
+.dojo-details__description {
+  font-size: 1.3em;
+  line-height: 1.5em;
+  margin-top: 30px;
 }
