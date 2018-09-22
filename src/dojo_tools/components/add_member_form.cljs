@@ -7,7 +7,7 @@
 
 (defn add-member-form-render [{:keys [name name-error on-submit]}]
   [:form {:on-submit on-submit}
-   [:h3
+   [:h3 {:class "stylish-font"}
     "Join to DOJO members"]
 
    [b/form-group {:validation-state (when name-error "error")}

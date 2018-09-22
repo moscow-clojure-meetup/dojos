@@ -9,7 +9,7 @@
 
 body {
   background-color: var(--main-background);
-  font-family: 'Poiret One', cursive;
+  font-family: 'Montserrat', sans-serif;
   color: var(--main-text-color);
 }
 
@@ -22,9 +22,18 @@ em {
 }
 
 
+.root-font {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.stylish-font {
+  font-family: 'Poiret One', cursive;
+}
+
 /* link */
 .link {
   color: var(--main-text-color);
+  font-family: 'Poiret One', cursive;
 }
 
 .link:hover,
@@ -95,6 +104,7 @@ em {
 /* dojos-list */
 .dojos-list {
   margin-top: 60px;
+  font-family: 'Poiret One', cursive;
 }
 
 .dojos-list__title {
@@ -161,12 +171,14 @@ em {
 
 /* admin page */
 .admin-header {
-    margin-top: 20px;
+  margin-top: 20px;
+  font-family: 'Poiret One', cursive;
 }
 
 .admin-dojos__controls {
   display: flex;
   justify-content: flex-end;
+  font-family: 'Poiret One', cursive;
 }
 
 .admin-dojos__new-text {
@@ -175,12 +187,14 @@ em {
 
 .admin-dojos__list {
   margin-top: 30px;
+  font-family: 'Poiret One', cursive;
 }
 
 .admin-sidebar {
   margin-right: -20px;
   margin-bottom: 20px;
   margin-left: -20px;
+  font-family: 'Poiret One', cursive;
 }
 
 .admin-sidebar .admin-sidebar__link > a,
@@ -204,6 +218,10 @@ em {
 
 .admin-dojos__dojo-title {
   flex-grow: 1;
+}
+
+.admin-dojo-form {
+  font-family: 'Poiret One', cursive;
 }
 
 .run-dojo-state-controls {
@@ -242,6 +260,7 @@ em {
 
 .dojo-details__header {
   margin-top: 30px;
+  font-family: 'Poiret One', cursive;
 }
 
 .dojo-details__description {

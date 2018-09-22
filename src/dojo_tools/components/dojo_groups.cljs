@@ -20,7 +20,7 @@
 
 
 (defn dojo-groups-render [{:keys [members-groups]}]
-  [:div {:class "dojo-groups"}
+  [:div {:class "dojo-groups stylish-font"}
    (for [group members-groups]
      ^{:key (:id group)}
      [dojo-group {:members-group group}])])

@@ -13,7 +13,8 @@
    [b/page-header {:class "admin-header"}
     "New DOJO"]
 
-   [:form {:on-submit on-submit}
+   [:form {:on-submit on-submit
+           :class     "admin-dojo-form"}
     [b/form-group {:validation-state (when (:title errors) "error")}
      [b/control-label
       "dojo title"]
@@ -29,6 +30,7 @@
       "dojo description"]
 
      [b/form-control {:rows            8
+                      :class           "root-font"
                       :component-class "textarea"
                       :on-change       (:action description)
                       :placeholder     "What is gonna happen"}]

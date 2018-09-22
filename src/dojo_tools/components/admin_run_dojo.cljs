@@ -64,7 +64,7 @@
 (defn admin-run-dojo-render [{:keys [dojo]}]
   (let [dojo-id    (:id dojo)
         dojo-state (:state dojo)]
-    [:<>
+    [:div {:class "stylish-font"}
      [b/page-header {:class "admin-header"}
       (str "Run DOJO - " (:title dojo))]
 

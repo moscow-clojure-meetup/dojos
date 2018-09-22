@@ -8,14 +8,14 @@
 
 
 (defn dojo-members-groups [{:keys [dojo-id]}]
-  [:div
+  [:div {:class "stylish-font"}
    [:h2 "DOJO groups"]
 
    [dojo-groups {:dojo-id dojo-id}]])
 
 
 (defn dojo-collect-members [{:keys [dojo-id]}]
-  [:<>
+  [:div {:class "stylish-font"}
    [add-member-form {:dojo-id dojo-id}]
    [dojo-members-list {:dojo-id dojo-id}]])
 
@@ -26,9 +26,8 @@
      [:img {:class "dojo-details__cover" :style {:background-image (str "url(" (:cover dojo) ")")}}])
    [:h1 {:class "dojo-details__header"}
     (:title dojo)]
-   [:div {:class "dojo-details__description"
-          :dangerouslySetInnerHTML
-          {:__html (md->html (:description dojo))}}]])
+   [:div {:class                   "dojo-details__description"
+          :dangerouslySetInnerHTML {:__html (md->html (:description dojo))}}]])
 
 (defn dojo-details-render [{:keys [dojo]}]
   (let [dojo-state (:state dojo)
