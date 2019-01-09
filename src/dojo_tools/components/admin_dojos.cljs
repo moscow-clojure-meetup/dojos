@@ -3,7 +3,6 @@
             [dojo-tools.router :refer [url-for]]
             [dojo-tools.components.bootstrap :as b]))
 
-
 (defn admin-dojos-render [{:keys [dojos]}]
   [:<>
    [b/page-header {:class "admin-header"}
@@ -31,7 +30,6 @@
                    :bs-style "success"
                    :bs-size  "xs"}
          [b/glyph-icon {:glyph "play"}]]]])]])
-
 
 (defn admin-dojos []
   (let [dojos (rf/subscribe [:dojos])]

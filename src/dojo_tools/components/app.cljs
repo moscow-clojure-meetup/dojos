@@ -11,13 +11,11 @@
             [dojo-tools.components.admin-sidebar :refer [admin-sidebar]]
             [dojo-tools.components.admin-run-dojo :refer [admin-run-dojo]]))
 
-
 (defn public-page-content [{:keys [route-name]}]
   (let [content-component (case route-name
                             :dojo-details dojo-details
                             dojos)]
     [content-component]))
-
 
 ;; Public base layout
 (defn public-page [{:keys [route-name]}]
@@ -35,7 +33,6 @@
 
    [footer]])
 
-
 (defn admin-page-content [{:keys [route-name]}]
   (let [content-component (case route-name
                             :admin-dojo-form admin-dojo-form
@@ -43,7 +40,6 @@
                             :admin-run-dojo admin-run-dojo
                             nil)]
     [content-component]))
-
 
 ;; Admin base layout
 (defn admin-page [{:keys [route-name]}]
@@ -62,7 +58,6 @@
            :md-offset 2
            :class "app__admin-main"}
       [admin-page-content {:route-name route-name}]]]]])
-
 
 (defn app []
   (let [route-name (rf/subscribe [:current-route-name])]

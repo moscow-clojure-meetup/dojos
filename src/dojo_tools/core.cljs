@@ -7,7 +7,6 @@
             [dojo-tools.events]
             [dojo-tools.components.app :refer [app]]))
 
-
 ;; Entry
 (defn mount-root []
   (rf/clear-subscription-cache!)
@@ -15,12 +14,10 @@
     [app]
     ($ js/document getElementById "app")))
 
-
 (defn ^:export main []
   (rf/dispatch-sync [:initialize])
   (start-router!)
   (mount-root))
-
 
 (comment
 
@@ -30,4 +27,6 @@
 
   (get-in @app-db [:current-route])
 
-  (rf/dispatch-sync [:initialize]))
+  (rf/dispatch-sync [:initialize])
+
+  (+ 2 3))

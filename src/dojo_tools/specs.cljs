@@ -5,7 +5,6 @@
             [schema.coerce :as coerce]
             [schema.utils :as s-utils]))
 
-
 (def Id s/Str)
 
 (def IdsList [Id])
@@ -17,38 +16,35 @@
 
 (def NonEmptyStr (s/constrained s/Str non-empty))
 
-
 (defn id-keys-matcher [schema]
   (when (= Id schema)
     (coerce/safe
-      (fn [x]
-        (if (keyword? x)
-          (name x)
-          (str x))))))
+     (fn [x]
+       (if (keyword? x)
+         (name x)
+         (str x))))))
 
 (defn ids-list-keys-matcher [schema]
   (when (= IdsList schema)
     (coerce/safe
-      (fn [x]
-        (if (map? x)
-          (vals x)
-          x)))))
+     (fn [x]
+       (if (map? x)
+         (vals x)
+         x)))))
 
 (defn timestamp-matcher [schema]
   (when (= Timestamp schema)
     (coerce/safe
-      (fn [x]
-        (if ($ moment isMoment x)
-          (js/Number x)
-          x)))))
-
+     (fn [x]
+       (if ($ moment isMoment x)
+         (js/Number x)
+         x)))))
 
 (defn log-error [message data error]
   (js/console.group message)
   (js/console.log "data -> " (clj->js data))
   (js/console.log "errors -> " (clj->js error))
   (js/console.groupEnd))
-
 
 (defn coerce-data [spec data]
   (let [matcher (coerce/first-matcher [id-keys-matcher
@@ -64,12 +60,10 @@
 
       result)))
 
-
 (defn check [spec db]
   (let [mismatch (s/check spec db)]
     (when mismatch
       (log-error "Validate | Data doesn't match spec" db mismatch))))
-
 
 ;; Dojos
 (def dojo-spec
@@ -85,7 +79,6 @@
 (def dojos-spec
   {Id dojo-spec})
 
-
 (def coerce-dojo
   (partial coerce-data dojo-spec))
 
@@ -94,7 +87,6 @@
 
 (def coerce-dojos
   (partial coerce-data dojos-spec))
-
 
 ;; Members
 (def member-spec
@@ -105,13 +97,11 @@
 (def members-spec
   {Id member-spec})
 
-
 (def check-member
   (partial s/check member-spec))
 
 (def coerce-members
   (partial coerce-data members-spec))
-
 
 ;; Groups
 (def members-group
@@ -123,10 +113,8 @@
 (def members-groups
   {Id members-group})
 
-
 (def coerce-members-groups
   (partial coerce-data members-groups))
-
 
 ;; Misc
 (def upcommin-dojos-spec
@@ -134,7 +122,6 @@
 
 (def past-dojos-spec
   [Id])
-
 
 ;; DB
 (def db-spec

@@ -2,10 +2,8 @@
   (:require [re-frame.core :as rf]
             [dojo-tools.specs :refer [check db-spec]]))
 
-
 (def check-db-spec
   (rf/after (partial check db-spec)))
-
 
 (def default
   {:dojos          nil

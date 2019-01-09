@@ -5,17 +5,14 @@
             [dojo-tools.components.dojo-members-list :refer [dojo-members-list]]
             [dojo-tools.components.dojo-groups :refer [dojo-groups]]))
 
-
 (def dojo-states
   {:pending        "Upcoming"
    :started        "Started"
    :groups-created "Groups created"
    :closed         "Closed"})
 
-
 (defn save-dojo-state [{:keys [id state partition]}]
   (rf/dispatch [:save-dojo-state id state (js/parseInt partition)]))
-
 
 (defn run-dojo-state-controls [{:keys [dojo-state dojo-id]}]
   (when dojo-id
@@ -52,14 +49,12 @@
                      :on-click on-submit}
            "Save new state"]]))]))
 
-
 (defn dojo-members [{:keys [dojo-id]}]
   [:<>
    [:h3
     "Registration for members is opened"]
 
    [dojo-members-list {:dojo-id dojo-id}]])
-
 
 (defn admin-run-dojo-render [{:keys [dojo]}]
   (let [dojo-id    (:id dojo)
@@ -79,7 +74,6 @@
        [dojo-groups {:dojo-id dojo-id}]
 
        nil)]))
-
 
 (defn admin-run-dojo []
   (let [dojo (rf/subscribe [:dojo-by-route])]

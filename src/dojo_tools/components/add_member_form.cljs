@@ -4,7 +4,6 @@
             [dojo-tools.components.form :refer [form]]
             [dojo-tools.components.bootstrap :as b]))
 
-
 (defn add-member-form-render [{:keys [name name-error on-submit]}]
   [:form {:on-submit on-submit}
    [:h3 {:class "stylish-font"}
@@ -17,10 +16,8 @@
 
     [b/feedback]]])
 
-
 (defn save-member [form-state]
   (rf/dispatch [:save-member form-state]))
-
 
 (def form-errors
   {:name "Name should not be empty"})
@@ -30,7 +27,6 @@
            check-member
            keys
            (select-keys form-errors)))
-
 
 (defn add-member-form [{:keys [dojo-id]}]
   [form {:id        :add-member-form

@@ -1,6 +1,5 @@
 (ns dojo-tools.components.footer)
 
-
 (defn footer []
   [:footer {:class "footer"}
    [:a {:class  "link footer__link"

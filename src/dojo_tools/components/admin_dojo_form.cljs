@@ -2,11 +2,9 @@
   (:require [moment]
             [react-datepicker :as dp]
             [re-frame.core :as rf]
-            [dojo-tools.router :refer [url-for]]
             [dojo-tools.specs :refer [coerce-dojo check-dojo]]
             [dojo-tools.components.form :refer [form]]
             [dojo-tools.components.bootstrap :as b]))
-
 
 (defn admin-dojo-form-render [{:keys [on-submit errors title description start-time]}]
   [:<>
@@ -54,10 +52,8 @@
                 :bs-size  "large"}
       "Save"]]]])
 
-
 (defn save-new-dojo [dojo-form-state]
   (rf/dispatch [:save-new-dojo dojo-form-state]))
-
 
 (def form-errors
   {:title       "Title should not be empty"

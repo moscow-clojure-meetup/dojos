@@ -3,7 +3,6 @@
             [dojo-tools.router :refer [url-for]]
             [dojo-tools.components.bootstrap :refer [grid row col]]))
 
-
 (defn dojos-list [{:keys [dojos title class]}]
   [:section {:class ["dojos-list" class]}
    [:h3 {:class "dojos-list__title"}
@@ -26,13 +25,11 @@
        [:h2 {:class "dojos-list__event-title"}
         "No dojos so far"]])]])
 
-
 (defn past-dojos-list []
   (let [past-dojos (rf/subscribe [:past-dojos])]
     (fn []
       [dojos-list {:dojos @past-dojos
                    :title "Past Dojos"}])))
-
 
 (defn upcomming-dojos-list []
   (let [upcomming-dojos (rf/subscribe [:upcomming-dojos])]
