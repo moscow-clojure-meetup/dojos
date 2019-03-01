@@ -23,6 +23,8 @@
       :process specs/coerce-dojos}
      {:path    [:upcommin-dojos]
       :process #(vals %)}
+     {:path    [:past-dojos]
+      :process #(vals %)}
      {:path    [:members]
       :process specs/coerce-members}
      {:path    [:members-groups]
@@ -82,7 +84,8 @@
 
 (defmethod save-dojo-state :groups-created
   [{:keys [db]} [id state partition]]
-  (let [groups         (utils/split-member-to-groups (-> db :members vals) partition)
+  (let [members        (->> db :members vals (filter #(= (:dojo-id %) id)))
+        groups         (utils/split-member-to-groups members partition)
         make-group     #(utils/create-members-group id (inc %1) %2)
         members-groups (->> groups
                             (map-indexed make-group)
