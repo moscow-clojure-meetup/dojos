@@ -8,14 +8,7 @@
       "url": "heroku/clojure"
     }
   ],
-  "env": {
-    "BUILD_COMMAND": {
-      "required": true
-    },
-    "BUILD_CONFIG_WHITELIST": {
-      "required": true
-    }
-  },
+  "env": {},
   "formation": {
     "web": {
       "quantity": 1
