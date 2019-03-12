@@ -1,0 +1,30 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/clojure"
+    }
+  ],
+  "env": {
+    "BUILD_COMMAND": {
+      "required": true
+    },
+    "BUILD_CONFIG_WHITELIST": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "dojos",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
