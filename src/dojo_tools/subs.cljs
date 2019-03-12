@@ -4,30 +4,30 @@
             [dojo-tools.utils :as utils]))
 
 ;; Subscriptions
-(rf/reg-sub
- :dojos
- (fn [db]
-   (:dojos db)))
-
 (defn past-dojos-list [db]
   (:past-dojos db))
 
-(rf/reg-sub
- :past-dojos-list
- past-dojos-list)
-
 (defn upcomming-dojos-list [db]
   (:upcommin-dojos db))
-
-(rf/reg-sub
- :upcomming-dojos-list
- upcomming-dojos-list)
 
 (defn prepare-dojos [[dojos dojos-list]]
   (let [raw-dojos (-> dojos
                       (select-keys dojos-list)
                       (vals))]
     (mapv utils/format-dojo raw-dojos)))
+
+(rf/reg-sub
+ :dojos
+ (fn [db]
+   (:dojos db)))
+
+(rf/reg-sub
+ :past-dojos-list
+ past-dojos-list)
+
+(rf/reg-sub
+ :upcomming-dojos-list
+ upcomming-dojos-list)
 
 (rf/reg-sub
  :past-dojos

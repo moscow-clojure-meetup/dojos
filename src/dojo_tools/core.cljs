@@ -7,7 +7,7 @@
             [dojo-tools.events]
             [dojo-tools.components.app :refer [app]]))
 
-;; Entry
+
 (defn mount-root []
   (rf/clear-subscription-cache!)
   (r/render
@@ -20,13 +20,11 @@
   (mount-root))
 
 (comment
-
-  (shadow.cljs.devtools.api/nrepl-select :app)
   (require '[re-frame.db :refer [app-db]])
   @app-db
 
   (get-in @app-db [:current-route])
+  (cljs.pprint/pprint
+   (get-in @app-db [:dojos]))
 
-  (rf/dispatch-sync [:initialize])
-
-  (+ 2 3))
+  (rf/dispatch-sync [:initialize]))

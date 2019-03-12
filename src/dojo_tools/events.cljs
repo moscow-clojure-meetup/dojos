@@ -1,18 +1,21 @@
 (ns dojo-tools.events
   (:require [re-frame.core :as rf]
-            [day8.re-frame.async-flow-fx]
-            [dojo-tools.db :refer [default check-db-spec]]
-            [dojo-tools.fb]
+            [dojo-tools.db :refer [default]]
+            [dojo-tools.effects.fb]
+            [dojo-tools.interceptors.core :refer [check-db]]
             [dojo-tools.specs :as specs]
             [dojo-tools.utils :as utils]))
 
 ;; Events
 (rf/reg-event-fx
  :initialize
- [check-db-spec]
  (fn []
    {:db            default
-    :firebase/init nil
+    ;; TODO move firebase config to env
+    :firebase/init {:apiKey      "AIzaSyD-vrcl7TLF-uTTqBDk-ECJxfrHyxnhcHY"
+                    :authDomain  "mcljsug-dojos.firebaseapp.com"
+                    :databaseURL "https://mcljsug-dojos.firebaseio.com"
+                    :projectId   "mcljsug-dojos"}
     :dispatch      [:set-fb-subscriptions]}))
 
 (rf/reg-event-fx
@@ -32,8 +35,7 @@
 
 (rf/reg-event-db
  :set-route
- [rf/trim-v
-  check-db-spec]
+ [rf/trim-v]
  (fn [db [name params query]]
    (assoc db :current-route {:name   name
                              :params params
@@ -41,8 +43,7 @@
 
 (rf/reg-event-db
  :assoc-to-path
- [rf/trim-v
-  check-db-spec]
+ [rf/trim-v check-db]
  (fn [db [path value]]
    (assoc-in db path value)))
 

@@ -1,14 +1,9 @@
-(ns dojo-tools.db
-  (:require [re-frame.core :as rf]
-            [dojo-tools.specs :refer [check db-spec]]))
-
-(def check-db-spec
-  (rf/after (partial check db-spec)))
+(ns dojo-tools.db)
 
 (def default
-  {:dojos          nil
-   :members        nil
-   :members-groups nil
+  {:dojos          {}
+   :members        {}
+   :members-groups {}
 
    :upcommin-dojos []
    :past-dojos     []})

@@ -1,4 +1,12 @@
-{:lein   true
+{:source-paths ["src"]
+
+ :dependencies [[binaryage/devtools "0.9.10"]
+                [metosin/spec-tools "0.9.0"]
+                [reagent "0.8.1"]
+                [re-frame "0.10.6"]
+                [day8.re-frame/async-flow-fx "0.0.11"]
+                [funcool/bide "1.6.0"]
+                [markdown-clj "1.0.2"]]
 
  :nrepl  {:port 3333}
 

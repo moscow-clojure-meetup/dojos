@@ -1,0 +1,14 @@
+.button.is-pseudo {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background-color: transparent;
+  outline: none;
+  font-size: inherit;
+}
+
+.button.is-pseudo:hover,
+.button.is-pseudo:focus {
+  background-color: transparent;
+  box-shadow: none;
+}
