@@ -8,7 +8,7 @@
   "scripts": {
     "shadow-watch-app": "shadow-cljs watch app",
     "shadow-release-app": "shadow-cljs release app",
-    "clean": "rm -rf ./target ./.shadow-cljs",
+    "clean": "rm -rf ./target ./.shadow-cljs ./public/js",
     "dev": "npm run clean && npm run shadow-watch-app",
     "compile": "npm run clean && npm run shadow-release-app",
     "server": "NODE_ENV=production node ./server/index.js",
