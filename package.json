@@ -8,9 +8,9 @@
   "scripts": {
     "shadow-watch-app": "shadow-cljs watch app",
     "shadow-release-app": "shadow-cljs release app",
-    "clean": "lein clean",
+    "clean": "rm -rf ./target ./.shadow-cljs ./public/js",
     "dev": "npm run clean && npm run shadow-watch-app",
-    "build": "npm run shadow-release-app",
+    "compile": "npm run clean && npm run shadow-release-app",
     "server": "NODE_ENV=production node ./server/index.js",
     "start": "npm run build && npm run server"
   },
@@ -22,9 +22,8 @@
     "firebase": "5.4.2",
     "moment": "2.22.2",
     "react": "16.4.2",
-    "react-bootstrap": "0.32.1",
-    "react-datepicker": "1.6.0",
     "react-dom": "16.4.2",
-    "shadow-cljs": "2.5.0"
+    "react-fela": "10.2.1",
+    "shadow-cljs": "2.8.13"
   }
 }

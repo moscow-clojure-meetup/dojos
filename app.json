@@ -1,7 +1,5 @@
 {
-  "addons": [
-
-  ],
+  "addons": [],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
@@ -24,7 +22,6 @@
     }
   },
   "name": "dojos",
-  "scripts": {
-  },
+  "scripts": {},
   "stack": "heroku-18"
 }
