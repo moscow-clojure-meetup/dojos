@@ -10,7 +10,7 @@
     "shadow-release-app": "shadow-cljs release app",
     "clean": "rm -rf ./target ./.shadow-cljs",
     "dev": "npm run clean && npm run shadow-watch-app",
-    "build": "npm run clean && npm run shadow-release-app",
+    "compile": "npm run clean && npm run shadow-release-app",
     "server": "NODE_ENV=production node ./server/index.js",
     "start": "npm run build && npm run server"
   },
