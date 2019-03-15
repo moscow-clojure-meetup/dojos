@@ -9,13 +9,10 @@
 ;; Events
 (rf/reg-event-fx
  :initialize
- (fn []
+ [rf/trim-v]
+ (fn [db [config]]
    {:db            default
-    ;; TODO move firebase config to env
-    :firebase/init {:apiKey      "AIzaSyD-vrcl7TLF-uTTqBDk-ECJxfrHyxnhcHY"
-                    :authDomain  "mcljsug-dojos.firebaseapp.com"
-                    :databaseURL "https://mcljsug-dojos.firebaseio.com"
-                    :projectId   "mcljsug-dojos"}
+    :firebase/init (:firebase config)
     :dispatch      [:set-fb-subscriptions]}))
 
 (rf/reg-event-fx

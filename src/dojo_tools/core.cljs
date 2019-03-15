@@ -7,6 +7,9 @@
             [dojo-tools.events]
             [dojo-tools.components.app :refer [app]]))
 
+(defn get-config []
+  (some-> ($ js/window :APP_CONFIG)
+          (js->clj :keywordize-keys true)))
 
 (defn mount-root []
   (rf/clear-subscription-cache!)
@@ -15,7 +18,7 @@
     ($ js/document getElementById "app")))
 
 (defn ^:export main []
-  (rf/dispatch-sync [:initialize])
+  (rf/dispatch-sync [:initialize (get-config)])
   (start-router!)
   (mount-root))
 

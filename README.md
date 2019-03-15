@@ -18,7 +18,7 @@
     npm run dev
 ```
 
-#### Open http://localhost:3000 and enjoy
+#### Open http://localhost:8080 and enjoy
 
 
 #### Connect to repl

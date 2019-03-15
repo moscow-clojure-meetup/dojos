@@ -6,21 +6,24 @@
     "node": "8.12.0"
   },
   "scripts": {
-    "shadow-watch-app": "shadow-cljs watch app",
-    "shadow-release-app": "shadow-cljs release app",
     "clean": "rm -rf ./target ./.shadow-cljs ./public/js",
-    "dev": "npm run clean && npm run shadow-watch-app",
-    "compile": "npm run clean && npm run shadow-release-app",
-    "server": "NODE_ENV=production node ./server/index.js",
-    "start": "npm run build && npm run server"
+    "watch-app": "npm run clean && shadow-cljs watch app",
+    "dev": "concurrently --kill-others \"nodemon --watch server ./server/index.js\" \"npm run watch-app\"",
+
+    "compile": "shadow-cljs release app",
+
+    "server": "NODE_ENV=production node ./server/index.js"
   },
   "author": "@thachenko1503",
   "license": "MIT",
   "dependencies": {
     "create-react-class": "15.6.3",
+    "dotenv": "7.0.0",
+    "ejs": "2.6.1",
     "express": "4.16.3",
     "firebase": "5.4.2",
     "moment": "2.22.2",
+    "morgan": "1.9.1",
     "react": "16.4.2",
     "react-dom": "16.4.2",
     "react-fela": "10.2.1",
