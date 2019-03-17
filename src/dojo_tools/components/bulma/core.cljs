@@ -21,6 +21,11 @@
 (def level-item (component "level-item"))
 (def level (component "level" :nav))
 (def container (component "container"))
+(def box (component "box"))
+(def media (component "media" :article))
+(def media-left (component "media-left"))
+(def media-content (component "media-content"))
+(def content (component "content"))
 
 ;; Complex components
 (defn tabs []
@@ -31,11 +36,12 @@
      [:ul
       (for [tab tabs
             :let [tab-id  (:id tab)
+                  tab-url (:url tab)
                   active? (= active-tab tab-id)]]
         ^{:key tab-id}
-        [:li {:class    (cn {:is-active active?})
-              :on-click (partial on-change tab-id)}
-         [:a
+        [:li {:class (cn {:is-active active?})}
+         [:a {:on-click (partial on-change tab-id)
+              :href     tab-url}
           (:content tab)]])]]))
 
 (defn button []

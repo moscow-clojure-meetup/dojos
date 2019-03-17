@@ -18,8 +18,10 @@
 
 (defonce router
   (r/router
-   [["/" :dojos]
-    ["/dojo/:dojo-id" :dojo-details]
+   [["/about" :about]
+    ["/puzzles" :puzzles]
+    ["/dojos" :dojos]
+    ["/dojos/:dojo-id" :dojo-details]
     ["/admin" :admin-dojos]
     ["/admin/new" :admin-dojo-form]
     ["/admin/run/:dojo-id" :admin-run-dojo]]))

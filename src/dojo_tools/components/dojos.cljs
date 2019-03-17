@@ -1,50 +1,52 @@
 (ns dojo-tools.components.dojos
-  (:require [re-frame.core :as rf]
-            [dojo-tools.router :refer [url-for]]
-            [dojo-tools.components.bootstrap :refer [grid row col]]))
+  (:require [react-fela]
+            [re-frame.core :as rf]
+            [dojo-tools.components.tabs :refer [tabs]]
+            [dojo-tools.components.fela :refer-macros [fela]]
+            [dojo-tools.components.bulma.core :as b]
+            [dojo-tools.router :refer [url-for]]))
 
-(defn dojos-list [{:keys [dojos title class]}]
-  [:section {:class ["dojos-list" class]}
-   [:h3 {:class "dojos-list__title"}
-    title]
+(defn dojos-list [{:keys [dojos active]}]
+  [:section
+   (if (> (count dojos) 0)
+     (for [dojo dojos]
+       ^{:key (:id dojo)}
+       [:div
+        (fela [cn {:margin-bottom "20px"
+                   :opacity       (if active "1" "0.5")}]
+          [b/box {:class cn}
+           (fela [cn {:color "#363636"}]
+             [:a {:href  (url-for :dojo-details {:dojo-id (:id dojo)})
+                  :class cn}
+              [b/media
+               [b/media-left
+                [:figure {:class "image is-128x128"}
+                 [:img {:src "https://bulma.io/images/placeholders/128x128.png"
+                        :alt "Image"}]]]
+               [b/media-content
+                [b/content
+                 [:p
+                  [:strong
+                   (:title dojo)]
 
-   [:ul {:class "dojos-list__events"}
-    (if (> (count dojos) 0)
-      (for [dojo dojos]
-        ^{:key (:id dojo)}
-        [:a {:href  (url-for :dojo-details {:dojo-id (:id dojo)})
-             :class ["link" "dojos-list__event-link"]}
-         [:li {:class "dojos-list__event"}
-          [:h2 {:class "dojos-list__event-title"}
-           (:title dojo)]
+                  [:br]
 
-          [:div {:class "dojos-list__event-time"}
-           (:start-time dojo)]]])
+                  [:small
+                   (:start-time dojo)]]]]]])])])
 
-      [:li {:class "dojos-list__event"}
-       [:h2 {:class "dojos-list__event-title"}
-        "No dojos so far"]])]])
-
-(defn past-dojos-list []
-  (let [past-dojos (rf/subscribe [:past-dojos])]
-    (fn []
-      [dojos-list {:dojos @past-dojos
-                   :title "Past Dojos"}])))
-
-(defn upcomming-dojos-list []
-  (let [upcomming-dojos (rf/subscribe [:upcomming-dojos])]
-    (fn []
-      [dojos-list {:dojos @upcomming-dojos
-                   :title "Upcomming Dojos"}])))
+     [:h3
+      "No dojos so far"])])
 
 (defn dojos []
-  [row
-   [col {:xs        12
-         :md        10
-         :md-offset 1}
-    [upcomming-dojos-list]]
+  (let [upcomming-dojos @(rf/subscribe [:upcomming-dojos])
+        past-dojos      @(rf/subscribe [:past-dojos])]
+    (fela [cn {:margin "20px 0 20px"}]
+      [:div {:class cn}
+       [tabs {:active :dojos}]
 
-   [col {:xs        12
-         :md        10
-         :md-offset 1}
-    [past-dojos-list]]])
+       (fela [cn {:padding-top "40px"}]
+         [:div {:class cn}
+          [dojos-list {:dojos  upcomming-dojos
+                       :active true}]])
+
+       [dojos-list {:dojos past-dojos}]])))
