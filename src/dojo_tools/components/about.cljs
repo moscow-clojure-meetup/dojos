@@ -7,7 +7,7 @@
 (defn about []
   [:<>
    [b/container
-    (fela [cn {:margin "40px 0 20px"}]
+    (fela [cn {:margin "20px 0 20px"}]
       [:div {:class cn}
        [tabs {:active :about}]
        [:h2 "About"]])]])
