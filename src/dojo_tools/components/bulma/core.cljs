@@ -26,6 +26,8 @@
 (def media-left (component "media-left"))
 (def media-content (component "media-content"))
 (def content (component "content"))
+(def columns (component "columns"))
+(def column (component "column"))
 
 ;; Complex components
 (defn tabs []

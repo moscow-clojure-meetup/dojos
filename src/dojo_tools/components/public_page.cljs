@@ -21,11 +21,15 @@
 
 ;; Public base layout
 (defn public-page [{:keys [route-name]}]
-  (fela [cn {:border-top-width "4px"
+  (fela [cn {:display          "flex"
+             :flex-direction   "column"
+             :min-height       "100vh"
+             :border-top-width "4px"
              :border-top-style "solid"
              :border-image     "linear-gradient(to left, #5881d8, #63b132) 100% 1"}]
-   [:<>
-    [b/section {:class cn}
-     [header]
-     [page-content {:route-name route-name}]]
+   [:div {:class cn}
+    (fela [cn {:flex 1}]
+      [b/section {:class cn}
+       [header]
+       [page-content {:route-name route-name}]])
     [footer]]))
