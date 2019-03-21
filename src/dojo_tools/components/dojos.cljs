@@ -6,6 +6,26 @@
             [dojo-tools.components.bulma.core :as b]
             [dojo-tools.router :refer [url-for]]))
 
+(defn dojo-card [{:keys [dojo]}]
+  [b/media
+   [b/media-left {:mods [:is-hidden-mobile]}
+    [:figure {:class "image is-128x128"}
+     [:img {:src "https://bulma.io/images/placeholders/128x128.png"
+            :alt "Image"}]]]
+   [b/media-content
+    [b/content
+     [:p
+      [:strong
+       (:title dojo)]
+      [:br]
+      [:span
+       (str (subs (:description dojo) 0 200)
+            " ...")]
+      [:br]
+      [:small
+       [:strong
+        (:start-time dojo)]]]]]])
+
 (defn dojos-list [{:keys [dojos active]}]
   [:section
    (if (> (count dojos) 0)
@@ -18,23 +38,10 @@
            (fela [cn {:color "#363636"}]
              [:a {:href  (url-for :dojo-details {:dojo-id (:id dojo)})
                   :class cn}
-              [b/media
-               [b/media-left
-                [:figure {:class "image is-128x128"}
-                 [:img {:src "https://bulma.io/images/placeholders/128x128.png"
-                        :alt "Image"}]]]
-               [b/media-content
-                [b/content
-                 [:p
-                  [:strong
-                   (:title dojo)]
+              [dojo-card {:dojo dojo}]])])])
 
-                  [:br]
-
-                  [:small
-                   (:start-time dojo)]]]]]])])])
-
-     [:h3
+     ;; TODO Show loader instead
+     [:h3 {:class "has-text-centered"}
       "No dojos so far"])])
 
 (defn dojos []
