@@ -48,7 +48,7 @@
 (s/def ::group-members
   (s/coll-of ::id))
 
-(s/def ::upcommin-dojos
+(s/def ::upcoming-dojos
   (s/coll-of ::dojo-id))
 
 (s/def ::past-dojos
@@ -82,7 +82,7 @@
 ;; DB
 (s/def ::db
   (s/keys :opt-un [::dojos ::members ::members-groups
-                   ::upcommin-dojos ::past-dojos]))
+                   ::upcoming-dojos ::past-dojos]))
 
 ;; Check
 (defn log-error [message data error]

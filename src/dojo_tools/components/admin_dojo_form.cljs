@@ -2,49 +2,45 @@
   (:require [moment]
             [react-datepicker :as dp]
             [re-frame.core :as rf]
-            [dojo-tools.specs :refer [coerce-dojo check-dojo]]
+            [reagent.core :refer [adapt-react-class]]
+            [dojo-tools.specs :refer [coerce-dojo]]
             [dojo-tools.components.form :refer [form]]
-            [dojo-tools.components.bootstrap :as b]))
+            [dojo-tools.components.bulma.core :as b]))
+
+(def datepicker (adapt-react-class dp/default))
 
 (defn admin-dojo-form-render [{:keys [on-submit errors title description start-time]}]
   [:<>
-   [b/page-header {:class "admin-header"}
+   [b/title {:class "admin-header"}
     "New DOJO"]
 
    [:form {:on-submit on-submit
            :class     "admin-dojo-form"}
-    [b/form-group {:validation-state (when (:title errors) "error")}
-     [b/control-label
+    [:form-group {:validation-state (when (:title errors) "error")}
+     [:label
       "dojo title"]
 
-     [b/form-control {:type        "text"
-                      :on-change   (:action title)
-                      :placeholder "Name new dojo"}]
+     [:input {:type        "text"
+              :on-change   (:action title)
+              :placeholder "Name new dojo"}]
+]
 
-     [b/feedback]]
-
-    [b/form-group {:validation-state (when (:description errors) "error")}
-     [b/control-label
+    [:form-group {:validation-state (when (:description errors) "error")}
+     [:label
       "dojo description"]
 
-     [b/form-control {:rows            8
+     [:textarea {:rows            8
                       :class           "root-font"
                       :component-class "textarea"
                       :on-change       (:action description)
-                      :placeholder     "What is gonna happen"}]
+                      :placeholder     "What is gonna happen"}]]
 
-     [b/feedback]]
-
-    [b/form-group
-     [b/control-label
+    [:form-group
+     [:label
       "dojo start date"]
 
-     [b/form-control {:component-class dp/default
-                      :date-format     "DD MMM YYYY"
-                      :selected        (:value start-time)
-                      :on-change       (:action start-time)}]
-
-     [b/feedback]]
+     [:input {:date-format     "DD MMM YYYY"}]
+     ]
 
     [:div
      [b/button {:type     "submit"
@@ -62,7 +58,7 @@
 (defn validate-dojo-form [dojo-form-state]
   (some->> dojo-form-state
            coerce-dojo
-           check-dojo
+           ;; check-dojo
            keys
            (select-keys form-errors)))
 

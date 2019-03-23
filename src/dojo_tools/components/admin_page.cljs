@@ -1,12 +1,13 @@
-(ns dojo-tools.components.admin-page)
-  ; (:require [dojo-tools.router :refer [url-for]]))
-
-(defn grid [] [:div])
-(defn row [] [:div])
-(defn col [] [:div])
-(defn admin-sidebar [] [:div])
-(defn admin-dojo-form [] [:div])
-(defn admin-dojos [] [:div])
+(ns dojo-tools.components.admin-page
+  (:require [react-fela]
+            [dojo-tools.components.fela :refer-macros [fela]]
+            [dojo-tools.components.header :refer [header]]
+            [dojo-tools.components.footer :refer [footer]]
+            [dojo-tools.components.admin-sidebar :refer [admin-sidebar]]
+            [dojo-tools.components.bulma.core :as b]
+            [dojo-tools.components.admin-dojos :refer [admin-dojos]]
+            [dojo-tools.components.admin-dojo-form :refer [admin-dojo-form]]
+            ))
 (defn admin-run-dojo [] [:div])
 
 (defn admin-page-content [{:keys [route-name]}]
@@ -19,18 +20,17 @@
 
 ;; Admin base layout
 (defn admin-page [{:keys [route-name]}]
-  [:<>
-   [grid {:class "app"
-          :fluid true}
-    [row
-     [col {:sm 3
-           :md 2
-           :class "app__admin-sidebar"}
-      [admin-sidebar]]
-
-     [col {:sm        9
-           :sm-offset 3
-           :md        10
-           :md-offset 2
-           :class "app__admin-main"}
-      [admin-page-content {:route-name route-name}]]]]])
+  (fela [cn {:display          "flex"
+             :flex-direction   "column"
+             :min-height       "100vh"
+             :border-top-width "4px"
+             :border-top-style "solid"
+             :border-image     "linear-gradient(to left, #5881d8, #63b132) 100% 1"}]
+        [:div {:class cn}
+         (fela [cn {:flex 1}]
+               [b/section {:class cn}
+                [header]
+                [admin-sidebar]
+                [admin-page-content {:route-name route-name}]
+                ])
+         [footer]]))

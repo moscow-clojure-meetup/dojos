@@ -5,5 +5,5 @@
    :members        {}
    :members-groups {}
 
-   :upcommin-dojos []
+   :upcoming-dojos []
    :past-dojos     []})

@@ -21,7 +21,7 @@
    {:firebase/subscribe
     [{:path    [:dojos]
       :process specs/coerce-dojos}
-     {:path    [:upcommin-dojos]
+     {:path    [:upcoming-dojos]
       :process #(vals %)}
      {:path    [:past-dojos]
       :process #(vals %)}
@@ -74,7 +74,7 @@
          id   (:id dojo)]
      {:firebase/save     [{:path  [:dojos id]
                            :value dojo}
-                          {:path  [:upcommin-dojos id]
+                          {:path  [:upcomming-dojos id]
                            :value id}]
       :navigate-to-route [:admin-dojos]})))
 

@@ -7,8 +7,8 @@
 (defn past-dojos-list [db]
   (:past-dojos db))
 
-(defn upcomming-dojos-list [db]
-  (:upcommin-dojos db))
+(defn upcoming-dojos-list [db]
+  (:upcoming-dojos db))
 
 (defn prepare-dojos [[dojos dojos-list]]
   (let [raw-dojos (-> dojos
@@ -26,8 +26,8 @@
  past-dojos-list)
 
 (rf/reg-sub
- :upcomming-dojos-list
- upcomming-dojos-list)
+ :upcoming-dojos-list
+ upcoming-dojos-list)
 
 (rf/reg-sub
  :past-dojos
@@ -36,9 +36,9 @@
  prepare-dojos)
 
 (rf/reg-sub
- :upcomming-dojos
+ :upcoming-dojos
  :<- [:dojos]
- :<- [:upcomming-dojos-list]
+ :<- [:upcoming-dojos-list]
  prepare-dojos)
 
 (rf/reg-sub

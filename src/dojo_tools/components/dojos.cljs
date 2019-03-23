@@ -27,6 +27,10 @@
         (:start-time dojo)]]]]]])
 
 (defn dojos-list [{:keys [dojos active]}]
+  (-> dojos
+      first
+      :start-time
+      )
   [:section
    (if (> (count dojos) 0)
      (for [dojo dojos]
@@ -45,7 +49,7 @@
       "No dojos so far"])])
 
 (defn dojos []
-  (let [upcomming-dojos @(rf/subscribe [:upcomming-dojos])
+  (let [upcoming-dojos @(rf/subscribe [:upcoming-dojos])
         past-dojos      @(rf/subscribe [:past-dojos])]
     (fela [cn {:margin "20px 0 20px"}]
       [:div {:class cn}
@@ -53,7 +57,7 @@
 
        (fela [cn {:padding-top "40px"}]
          [:div {:class cn}
-          [dojos-list {:dojos  upcomming-dojos
+          [dojos-list {:dojos  upcoming-dojos
                        :active true}]])
 
        [dojos-list {:dojos past-dojos}]])))
