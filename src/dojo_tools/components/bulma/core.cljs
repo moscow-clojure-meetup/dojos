@@ -28,6 +28,8 @@
 (def content (component "content"))
 (def columns (component "columns"))
 (def column (component "column"))
+(def control (component "control"))
+(def input (component "input"))
 
 ;; Complex components
 (defn tabs []

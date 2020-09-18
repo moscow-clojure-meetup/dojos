@@ -29,8 +29,8 @@
 (defn dojos-list [{:keys [dojos active]}]
   (-> dojos
       first
-      :start-time
-      )
+      :start-time)
+
   [:section
    (if (> (count dojos) 0)
      (for [dojo dojos]

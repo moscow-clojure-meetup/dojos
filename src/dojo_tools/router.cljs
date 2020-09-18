@@ -67,7 +67,7 @@
 (defn start-router! []
   (r/start!
    router
-   {:default     :dojos
+   {:default     :about
     :on-navigate on-navigate}))
 
 

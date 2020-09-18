@@ -1,7 +1,7 @@
 (ns dojo-tools.components.admin-run-dojo
   (:require [re-frame.core :as rf]
             [dojo-tools.components.form :refer [form]]
-            [dojo-tools.components.bootstrap :as b]
+            ; [dojo-tools.components.bootstrap :as b]
             [dojo-tools.components.dojo-members-list :refer [dojo-members-list]]
             [dojo-tools.components.dojo-groups :refer [dojo-groups]]))
 

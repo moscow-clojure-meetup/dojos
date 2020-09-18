@@ -1,12 +1,11 @@
 (ns dojo-tools.components.dojo-members-list
-  (:require [re-frame.core :as rf]
-            [dojo-tools.components.bootstrap :as b]))
+  (:require [re-frame.core :as rf]))
 
 (defn dojo-members-list-render [{:keys [members]}]
-  [b/list-group {:class ""}
+  [:ul
    (for [member members]
      ^{:key (:id member)}
-     [b/list-group-item
+     [:li
       [:span
        (:name member)]])])
 
