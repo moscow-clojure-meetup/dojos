@@ -1,0 +1,14 @@
+{:duct.profile/base
+ {:duct.core/project-ns dojos
+  :dojos/config         {:env         #ig/ref :duct.core/environment
+                         :server-port 3001}
+  :dojos/server         #ig/ref :dojos/config}
+
+ :duct.profile/dev
+ #duct/include "dev"
+
+ :duct.profile/local
+ #duct/include "local"
+
+ :duct.profile/prod
+ {:dojos/config {:server-port 3001}}}

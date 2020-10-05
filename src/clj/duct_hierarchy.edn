@@ -1,0 +1,1 @@
+{:dojos/server [:duct/daemon]}
