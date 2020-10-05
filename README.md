@@ -1,32 +1,23 @@
-## **DOJO Tools**
+## **DOJOS Web App**
 
-#### Probably you will need to install shadow-cljs
+### Server
 
-```
-    npm i -g shadow-cljs
-```
+##### Start the dev server:
+`lein repl`
 
-#### Install deps
-
-```
-    npm i
+```clojure 
+(dev)
+(go)
 ```
 
-#### Then run dev build
-
-```
-    npm run dev
-```
-
-#### Open http://localhost:8080 and enjoy
+http://localhost:3001/api/echo should return a simple response
 
 
-#### Connect to repl
 
-nRepl server will listen on 3333 port
+### Frontend
 
-When you connect run this
+##### Start the shadow-cljs dev server:
 
-```clojure
-(shadow.cljs.devtools.api/nrepl-select :app)
-```
+`lein watch-shadow`
+
+http://localhost:3000 should return the main html page
