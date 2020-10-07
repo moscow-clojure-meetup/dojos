@@ -11,11 +11,14 @@
                  [duct/core "0.8.0" :exclusions [integrant]]
                  [http-kit "2.5.0"]
                  [metosin/reitit "0.5.6"]
-                 [javax.servlet/servlet-api "2.5"]]
+                 [ring-cors "0.1.13"]
+                 [javax.servlet/servlet-api "2.5"]
+                 [com.walmartlabs/lacinia "0.38.0-alpha-3"]
+                 [io.replikativ/datahike "0.3.2"]]
 
   :main ^:skip-aot dojos.core
   :uberjar-name "dojos.jar"
-  :source-paths ["src/clj" "src/cljs"]
+  :source-paths ["src/clj"]
   :test-paths ["test"]
   :resource-paths ["resources"]
   :target-path "target"
@@ -45,10 +48,19 @@
                        :source-paths   ["src/clj"]
                        :resource-paths ["prod/resources"]}
 
-             :front   {:dependencies [[thheller/shadow-cljs "2.11.4"]]}}
+             :front   {:source-paths ["src/cljs"]
+                       :dependencies [[thheller/shadow-cljs "2.11.4"]
+                                      [reagent "1.0.0-alpha2"]
+                                      [re-graph "0.1.14"]]}}
 
   ;; ClojureScript
-  :npm-deps [[react "16.13.1"]]
+  :npm-deps [[react "16.13.1"]
+             [react-dom "16.13.1"]]
+
+  :npm-dev-deps [[karma "4.4.1"]
+                 [karma-chrome-launcher "3.1.0"]
+                 [karma-cljs-test "0.1.0"]
+                 [prettier "2.0.5"]]
 
   :shadow-cljs {:source-paths ["src/cljs"]
                 :nrepl        {:port 3333}
