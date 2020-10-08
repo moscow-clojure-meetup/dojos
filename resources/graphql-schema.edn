@@ -1,0 +1,9 @@
+{:objects
+ {:dojo {:fields {:id   {:type    Int
+                         :resolve (:get :dojo/id)}
+                  :name {:type    String
+                         :resolve (:get :dojo/name)}}}}
+
+ :queries
+ {:dojos {:type    (list :dojo)
+          :resolve :get-dojos}}}

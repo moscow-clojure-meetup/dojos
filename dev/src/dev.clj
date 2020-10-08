@@ -24,7 +24,7 @@
   [:duct.profile/dev :duct.profile/local])
 
 
-(namespace.repl/set-refresh-dirs "dev/src" "src" "test")
+(namespace.repl/set-refresh-dirs "dev/src" "src/clj" "test")
 
 
 (when (io/resource "local.clj")
