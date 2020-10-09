@@ -38,6 +38,7 @@
                                         [fipp "0.6.22"]
                                         [hawk "0.2.11"]
                                         [fixturex "0.3.2"]
+                                        [cljs-bean "1.6.0"]
                                         [vvvvalvalval/scope-capture "0.3.2"]]}
 
              :repl    {:prep-tasks   ^:replace ["javac" "compile"]

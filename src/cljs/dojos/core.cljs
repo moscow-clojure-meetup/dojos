@@ -1,7 +1,8 @@
 (ns dojos.core
   (:require [reagent.core :as reagent]
             [reagent.dom :as dom]
-            ["@apollo/client" :as apollo]))
+            ["@apollo/client" :as apollo]
+            [cljs-bean.core :as b]))
 
 
 (def development?
@@ -16,11 +17,24 @@
   (apollo/gql "{ dojos { id name } }"))
 
 
+(defn use-query [& args]
+  (->
+    (apply apollo/useQuery args)
+    (b/bean :recursive true)))
+
+(defn dojo-list-item [{:keys [id name]}]
+  [:li {:key id}
+    [:b [:em name]]])
+
 (defn dojos []
-  (let [data (apollo/useQuery dojos-query)]
+  (let [{:keys [loading error data]} (use-query dojos-query)]
     (reagent/as-element
-     [:div
-      (println data)])))
+      [:div
+        (cond 
+          loading "loading"
+          ;; Seems that b/bean recursive is not recursive enough
+          error (str "Error happened: " (-> error b/bean :message))
+          :else [:ul (map dojo-list-item (:dojos data))])])))
 
 
 (defn app-root []
