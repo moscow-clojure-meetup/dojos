@@ -49,13 +49,16 @@
                        :resource-paths ["prod/resources"]}
 
              :front   {:source-paths ["src/cljs"]
-                       :dependencies [[thheller/shadow-cljs "2.11.4"]
+                       :dependencies [[thheller/shadow-cljs "2.11.5"]
                                       [reagent "1.0.0-alpha2"]
                                       [re-graph "0.1.14"]]}}
 
   ;; ClojureScript
-  :npm-deps [[react "16.13.1"]
-             [react-dom "16.13.1"]]
+  :npm-deps [[shadow-cljs "2.11.5"]
+             [react "16.13.1"]
+             [react-dom "16.13.1"]
+             ["@apollo/client" "3.2.2"]
+             [graphql "15.3.0"]]
 
   :npm-dev-deps [[karma "4.4.1"]
                  [karma-chrome-launcher "3.1.0"]

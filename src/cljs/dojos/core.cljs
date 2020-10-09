@@ -1,42 +1,32 @@
 (ns dojos.core
   (:require [reagent.core :as reagent]
             [reagent.dom :as dom]
-            [re-graph.core :as re-graph]))
+            ["@apollo/client" :as apollo]))
 
 
 (def development?
   ^boolean goog.DEBUG)
 
 
-(defonce state
-  (reagent/atom {:dojos nil}))
+(def client (apollo/ApolloClient. #js {:uri   "http://localhost:3001/api/gql"
+                                       :cache (apollo/InMemoryCache.)}))
+
+
+(def dojos-query
+  (apollo/gql "{ dojos { id name } }"))
+
+
+(defn dojos []
+  (let [data (apollo/useQuery dojos-query)]
+    (reagent/as-element
+     [:div
+      (println data)])))
 
 
 (defn app-root []
-  (let [dojos (:dojos @state)]
-    [:div
-     [:h2 "All Dojos"]
-     (when (some? dojos)
-       [:ul
-        (doall
-         (for [dojo dojos]
-           ^{:key (:id dojo)}
-           [:li
-            [:b [:em (:name dojo)]]]))])]))
-
-
-(defn set-dojos [{:keys [data errors]}]
-  (swap! state assoc :dojos (:dojos data)))
-
-
-(defn init-graph-api []
-  (re-graph/init
-   {:http {:url "http://localhost:3001/api/gql"}
-    :ws   {:url nil}}))
-
-
-(defn fetch-dojos []
-  (re-graph/query :dojos-request "{ dojos { id, name } }" nil set-dojos))
+  [:> apollo/ApolloProvider {:client client}
+   [:h2 "All Dojos"]
+   [:> dojos]])
 
 
 (defn mount []
@@ -52,6 +42,4 @@
     (enable-console-print!)
     (println "init app in dev mode"))
 
-  (mount)
-  (init-graph-api)
-  (fetch-dojos))
+  (mount))
