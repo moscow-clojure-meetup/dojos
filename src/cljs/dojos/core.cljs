@@ -9,11 +9,25 @@
   ^boolean goog.DEBUG)
 
 
-(def client (apollo/ApolloClient. #js {:uri   "http://localhost:3001/api/gql"
-                                       :cache (apollo/InMemoryCache.)}))
+(def cache
+  (apollo/InMemoryCache.))
+
+
+(def client
+  (apollo/ApolloClient.
+    (b/->js
+       {:uri   "http://localhost:3001/api/gql"
+        :cache cache
+        :queryDeduplication true
+        :defaultOptions
+        {:watchQuery
+          {:fetchPolicy "cache-and-network"
+           :nextFetchPolicy "cache-first"}}})))
 
 
 (def dojos-query
+  ;; It seems that query builders are sensless
+  ;; because they don't generate GraphQL Document
   (apollo/gql "{ dojos { id name } }"))
 
 
