@@ -4,6 +4,7 @@
             [uix.dom.alpha :as uix.dom]
             ["@apollo/client" :as apollo]
             ["@material-ui/core" :as mui]
+            ["@material-ui/core/styles" :as mui.styles]
             ["@material-ui/lab" :refer [Skeleton]]
             [cljs-bean.core :as b]))
 
@@ -72,8 +73,10 @@
 (defn main-page []
   [:> mui/Box {:margin "20vh auto" :maxWidth 480}
    [:> mui/Paper
-    [:> my-header {:variant "h4"} "All Dojos"
-     [dojos]]]])
+    [:> my-header {:variant "h4"
+                   :css {:color "red"}}
+     "All Dojos"]
+    [dojos]]])
 
 
 (defn app-root []
@@ -84,7 +87,8 @@
     [:> apollo/ApolloProvider {:client client}
      [:> mui/ThemeProvider {:theme theme}
       [:> mui/CssBaseline]
-      [main-page]]]))
+      [:div {:css {:border "1px solid blue"}}
+       [main-page]]]]))
 
 
 (defn mount []
@@ -95,9 +99,24 @@
   (mount))
 
 
+(defn material-styles-hook-init []
+  (uix/add-transform-fn
+   (fn [attrs]
+     (if-not (contains? attrs :css)
+       attrs
+       (let [classes    (:class attrs)
+             css        (b/->js {:css (:css attrs)})
+             root-class (.-css ((mui.styles/makeStyles css)))]
+         (js/console.log root-class)
+         (-> attrs
+             (dissoc :css)
+             (assoc :class (str classes " " root-class))))))))
+
+
 (defn ^:export main []
   (when development?
     (enable-console-print!)
     (println "init app in dev mode"))
 
+  (material-styles-hook-init)
   (mount))
