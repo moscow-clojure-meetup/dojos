@@ -2,6 +2,8 @@
   (:require [reagent.core :as reagent]
             [reagent.dom :as dom]
             ["@apollo/client" :as apollo]
+            ["@material-ui/core" :as mui]
+            ["react" :as react]
             [cljs-bean.core :as b]))
 
 
@@ -36,29 +38,45 @@
     (apply apollo/useQuery args)
     (b/bean :recursive true)))
 
+
 (defn dojo-list-item [{:keys [id name]}]
-  [:li {:key id}
-    [:b [:em name]]])
+  [:> mui/ListItem {:key id :button true}
+    [:> mui/ListItemText
+      {:primary name}]])
+
 
 (defn dojos []
   (let [{:keys [loading error data]} (use-query dojos-query)]
     (reagent/as-element
-      [:div
-        (cond 
-          loading "loading"
-          ;; Seems that b/bean recursive is not recursive enough
-          error (str "Error happened: " (-> error b/bean :message))
-          :else [:ul (map dojo-list-item (:dojos data))])])))
+      (cond 
+        loading "loading"
+        ;; Seems that b/bean recursive is not recursive enough
+        error (str "Error happened: " (-> error b/bean :message))
+        :else [:> mui/List (map dojo-list-item (:dojos data))]))))
+
+
+(defn main-page []
+  [:> mui/Box {:margin "20vh auto" :maxWidth 480}
+    [:> mui/Paper
+      [:> mui/Box {:padding 2}
+        [:> mui/Typography {:variant "h4"} "All Dojos"]]  
+      [:> dojos]]])
 
 
 (defn app-root []
-  [:> apollo/ApolloProvider {:client client}
-   [:h2 "All Dojos"]
-   [:> dojos]])
+  (let [prefers-dark-mode (mui/useMediaQuery "(prefers-color-scheme: dark)" #js {:noSsr true})
+        theme (react/useMemo
+                #(mui/createMuiTheme (b/->js {:palette {:type (if prefers-dark-mode "dark" "light")}}))
+                #js [prefers-dark-mode])]
+    (reagent/as-element
+      [:> apollo/ApolloProvider {:client client}
+        [:> mui/ThemeProvider {:theme theme}
+          [:> mui/CssBaseline
+            [main-page]]]])))
 
 
 (defn mount []
-  (dom/render [app-root] js/app))
+  (dom/render [:> app-root] js/app))
 
 
 (defn on-update []

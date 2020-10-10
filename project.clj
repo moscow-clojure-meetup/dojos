@@ -59,6 +59,8 @@
              [react "16.13.1"]
              [react-dom "16.13.1"]
              ["@apollo/client" "3.2.2"]
+             ["@material-ui/core" "4.11.0"]
+             ["@material-ui/icons" "4.9.1"]
              [graphql "15.3.0"]]
 
   :npm-dev-deps [[karma "4.4.1"]
