@@ -3,6 +3,7 @@
             [reagent.dom :as dom]
             ["@apollo/client" :as apollo]
             ["@material-ui/core" :as mui]
+            ["@material-ui/lab" :refer [Skeleton]]
             ["react" :as react]
             [cljs-bean.core :as b]))
 
@@ -28,7 +29,7 @@
 
 
 (def dojos-query
-  ;; It seems that query builders are sensless
+  ;; It seems that query builders are senseless
   ;; because they don't generate GraphQL Document
   (apollo/gql "{ dojos { id name } }"))
 
@@ -45,21 +46,35 @@
       {:primary name}]])
 
 
+(defn loading-list-item [key]
+  [:> mui/ListItem {:key key}
+    [:> mui/ListItemText
+      ;; If JS lib checks for a React element in its props
+      ;; using such hack is required
+      {:primary (reagent/as-element [:> Skeleton {:width "20ex"}])}]])
+
+
+(def static-loading-list
+  [:> mui/List
+    (map loading-list-item (range 3))])
+
+
 (defn dojos []
   (let [{:keys [loading error data]} (use-query dojos-query)]
     (reagent/as-element
       (cond 
-        loading "loading"
+        loading static-loading-list
         ;; Seems that b/bean recursive is not recursive enough
         error (str "Error happened: " (-> error b/bean :message))
         :else [:> mui/List (map dojo-list-item (:dojos data))]))))
 
+;; Might be sensible to create a helper macro
+(def my-header ((mui/styled mui/Typography) #js {:padding 16}))
 
 (defn main-page []
   [:> mui/Box {:margin "20vh auto" :maxWidth 480}
     [:> mui/Paper
-      [:> mui/Box {:padding 2}
-        [:> mui/Typography {:variant "h4"} "All Dojos"]]  
+      [:> my-header {:variant "h4"} "All Dojos"]  
       [:> dojos]]])
 
 
