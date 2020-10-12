@@ -3,7 +3,7 @@
   :url "https://github.com/moscow-clojure-meetup/dojos"
   :min-lein-version "2.0.0"
 
-  :clean-targets [:target-path "public/js"]
+  :clean-targets [:target-path "public/js" ".shadow-cljs"]
 
   ;; Clojure
   :dependencies [[org.clojure/clojure "1.10.1"]
@@ -49,20 +49,21 @@
                        :source-paths   ["src/clj"]
                        :resource-paths ["prod/resources"]}
 
-             :front   {:source-paths ["src/cljs"]
+             :front   {:source-paths ["src/cljs" "src/cljc"]
                        :dependencies [[thheller/shadow-cljs "2.11.5"]
-                                      [reagent "1.0.0-alpha2"]
-                                      [re-graph "0.1.14"]]}}
+                                      [applied-science/js-interop "0.2.7"]
+                                      [uix/core "0.0.1-alpha"]
+                                      [uix/dom "0.0.1-alpha"]]}}
 
   ;; ClojureScript
   :npm-deps [[shadow-cljs "2.11.5"]
              [react "16.13.1"]
              [react-dom "16.13.1"]
              ["@apollo/client" "3.2.2"]
+             [graphql "15.3.0"]
              ["@material-ui/core" "4.11.0"]
              ["@material-ui/icons" "4.9.1"]
-             ["@material-ui/lab" "4.0.0-alpha.56"]
-             [graphql "15.3.0"]]
+             ["@material-ui/lab" "4.0.0-alpha.56"]]
 
   :npm-dev-deps [[karma "4.4.1"]
                  [karma-chrome-launcher "3.1.0"]
