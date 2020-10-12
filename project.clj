@@ -3,7 +3,7 @@
   :url "https://github.com/moscow-clojure-meetup/dojos"
   :min-lein-version "2.0.0"
 
-  :clean-targets [:target-path "public/js"]
+  :clean-targets [:target-path "public/js" ".shadow-cljs"]
 
   ;; Clojure
   :dependencies [[org.clojure/clojure "1.10.1"]
@@ -49,8 +49,9 @@
                        :source-paths   ["src/clj"]
                        :resource-paths ["prod/resources"]}
 
-             :front   {:source-paths ["src/cljs"]
+             :front   {:source-paths ["src/cljs" "src/cljc"]
                        :dependencies [[thheller/shadow-cljs "2.11.5"]
+                                      [applied-science/js-interop "0.2.7"]
                                       [uix/core "0.0.1-alpha"]
                                       [uix/dom "0.0.1-alpha"]]}}
 
