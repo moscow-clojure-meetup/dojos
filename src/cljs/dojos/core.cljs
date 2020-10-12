@@ -77,9 +77,9 @@
 
 (defn app-root []
   (let [prefers-dark-mode (mui/useMediaQuery "(prefers-color-scheme: dark)" #js {:noSsr true})
-        theme             (react/useMemo
+        theme             (uix/memo
                            #(mui/createMuiTheme (bean/->js {:palette {:type (if prefers-dark-mode "dark" "light")}}))
-                           #js [prefers-dark-mode])]
+                           [prefers-dark-mode])]
     [:> apollo/ApolloProvider {:client client}
      [:> mui/ThemeProvider {:theme theme}
       [:> mui/CssBaseline]
