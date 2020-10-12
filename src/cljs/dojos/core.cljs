@@ -29,7 +29,7 @@
 
 (defn use-query [& args]
   (->
-   (apply apollo/useQuery args)
+   (apply apollo/useQuery (map bean/->js args))
    (bean/bean :recursive true)))
 
 
@@ -51,7 +51,8 @@
 
 
 (defn dojos []
-  (let [{:keys [loading error data]} (use-query dojos-query)]
+  ;; FIXME variables are only for the test
+  (let [{:keys [loading error data]} (use-query dojos-query {:variables {:id 1}})]
     (cond
       loading static-loading-list
       ;; Seems that b/bean recursive is not recursive enough
