@@ -3,7 +3,7 @@
             [integrant.core :as ig]
             [com.walmartlabs.lacinia.util :refer [attach-resolvers]]
             [com.walmartlabs.lacinia.schema :as schema]
-            [dojos.dojos :refer [get-dojos]]))
+            [dojos.dojos :as dojos]))
 
 
 (defn get-prop [& ks]
@@ -16,6 +16,7 @@
       slurp
       edn/read-string
       (attach-resolvers ;; TODO scan project for resolvers automatically
-       {:get-dojos get-dojos
-        :get       get-prop})
+       {:get-dojos      dojos/get-dojos
+        :get-dojo-by-id dojos/get-dojo-by-id
+        :get            get-prop})
       schema/compile))
