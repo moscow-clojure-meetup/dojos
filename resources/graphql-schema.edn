@@ -6,4 +6,8 @@
 
  :queries
  {:dojos {:type    (list :dojo)
-          :resolve :get-dojos}}}
+          :resolve :get-dojos}
+
+  :dojo  {:type    :dojo
+          :args    {:id {:type Int}}
+          :resolve :get-dojo-by-id}}}

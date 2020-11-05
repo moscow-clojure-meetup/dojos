@@ -17,10 +17,11 @@
 
 
 (defn execute-gql [request]
-  (let [{:keys [schema db]} (get-in request [:reitit.core/match :data :context])]
+  (let [{:keys [schema db]} (get-in request [:reitit.core/match :data :context])
+        {:keys [variables query]} (:body-params request)
+        result (execute schema query variables {:db @db})]
     {:status 200
-     :body   (let [query (get-in request [:body-params :query])]
-               (execute schema query nil {:db @db}))}))
+     :body   result}))
 
 
 (def malli-coercion

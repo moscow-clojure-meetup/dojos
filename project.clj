@@ -87,7 +87,9 @@
   :aliases {"karma-once"   ["do"
                             ["shadow" "compile" "karma-test"]
                             ["shell" "karma" "start" "--single-run" "--reporters" "junit,dots"]]
+
             "karma-watch"  ["do"
                             ["shadow" "watch" "karma-test"]]
+
             "watch-shadow" ["do"
                             ["with-profile" "+front" "shadow" "watch" "app"]]})
