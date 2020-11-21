@@ -3,15 +3,15 @@
 ### Server
 
 ##### Start the dev server:
+
+To enable Sentry on the server setup this env var `SENTRY_DNS`
+
 `lein repl`
 
 ```clojure 
 (dev)
 (go)
-```
-
-http://localhost:3001/api/echo should return a simple response
-
+``` 
 
 
 ### Frontend

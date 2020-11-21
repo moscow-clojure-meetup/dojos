@@ -14,7 +14,8 @@
                  [ring-cors "0.1.13"]
                  [javax.servlet/servlet-api "2.5"]
                  [com.walmartlabs/lacinia "0.38.0-alpha-3"]
-                 [io.replikativ/datahike "0.3.2"]]
+                 [io.replikativ/datahike "0.3.2"]
+                 [io.sentry/sentry-clj "3.1.130"]]
 
   :main ^:skip-aot dojos.core
   :uberjar-name "dojos.jar"

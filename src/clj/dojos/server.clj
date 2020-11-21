@@ -13,15 +13,20 @@
             [ring.middleware.cors :refer [wrap-cors]]
             [muuntaja.core :as m]
             [malli.util :as mu]
-            [com.walmartlabs.lacinia :refer [execute]]))
+            [com.walmartlabs.lacinia :refer [execute]]
+            [sentry-clj.core :as sentry]))
 
 
 (defn execute-gql [request]
-  (let [{:keys [schema db]} (get-in request [:reitit.core/match :data :context])
-        {:keys [variables query]} (:body-params request)
-        result (execute schema query variables {:db @db})]
-    {:status 200
-     :body   result}))
+  (try
+    (let [{:keys [schema db]} (get-in request [:reitit.core/match :data :context])
+          {:keys [variables query]} (:body-params request)
+          result (execute schema query variables {:db @db})]
+      {:status 200
+       :body   result})
+    (catch Throwable t
+      (sentry/send-event {:throwable t})
+      (throw t))))
 
 
 (def malli-coercion
