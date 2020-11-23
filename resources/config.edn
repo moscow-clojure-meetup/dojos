@@ -12,6 +12,9 @@
   :dojos/db
   {}
 
+  :dojos/sentry
+  {:sentry-dns #duct/env ["SENTRY_DNS"]}
+
   :dojos/server.handler
   {:schema #ig/ref :dojos/graphql-schema
    :db     #ig/ref :dojos/db}
